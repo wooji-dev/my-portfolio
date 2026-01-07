@@ -1,35 +1,68 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { Routes, Route } from "react-router-dom";
+import Header from "./components/Header.jsx";
+import Footer from "./components/Footer.jsx";
+import Cover from "./pages/Cover.jsx";
+import IndexSection from "./pages/Index.jsx"; // 기존 Index.jsx를 섹션으로 활용
+import About from "./pages/About.jsx";
+import Projects from "./pages/Projects.jsx";
+import ProjectDetail from "./pages/ProjectDetail.jsx";
 
-function App() {
-  const [count, setCount] = useState(0)
-
+export default function App() {
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
-}
+    <div className="app">
+      <Routes>
+        {/* 랜딩 페이지: 표지 + 인덱스 섹션 */}
+        <Route
+          path="/"
+          element={
+            <>
+              <Cover />
+              <main className="container">
+                <IndexSection /> {/* 인덱스는 같은 페이지에서 스크롤 */}
+              </main>
+              <Footer />
+            </>
+          }
+        />
 
-export default App
+        {/* 나머지 SPA 페이지 */}
+        <Route
+          path="/about"
+          element={
+            <>
+              <Header />
+              <main className="container">
+                <About />
+              </main>
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/projects"
+          element={
+            <>
+              <Header />
+              <main className="container">
+                <Projects />
+              </main>
+              <Footer />
+            </>
+          }
+        />
+        <Route
+          path="/projects/:slug"
+          element={
+            <>
+              <Header />
+              <main className="container">
+                <ProjectDetail />
+              </main>
+              <Footer />
+            </>
+          }
+        />
+      </Routes>
+    </div>
+  );
+}
