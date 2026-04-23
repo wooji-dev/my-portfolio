@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 interface SidebarProps {
   visible: boolean;
@@ -17,8 +17,7 @@ interface NavGroup {
 
 type NavEntry = NavItem | NavGroup;
 
-const isGroup = (entry: NavEntry): entry is NavGroup =>
-  'children' in entry;
+const isGroup = (entry: NavEntry): entry is NavGroup => 'children' in entry;
 
 const NAV_ENTRIES: NavEntry[] = [
   { id: 'cover', label: 'Cover' },
@@ -26,159 +25,133 @@ const NAV_ENTRIES: NavEntry[] = [
   {
     label: 'Projects',
     children: [
-      { id: 'project-elo', label: 'ELO' },
+      { id: 'project-ux-ecommerce', label: 'E-Commerce UX' },
+      { id: 'project-ab-test', label: 'A/B Test' },
       { id: 'project-figma', label: 'Figma AI' },
       { id: 'project-solvps', label: 'SolvPS' },
       { id: 'project-solmate', label: 'SOLMate' },
       { id: 'project-paytrace', label: 'PayTrace' },
     ],
   },
-  { id: 'info', label: 'Profile' },
+  { id: 'thanks', label: 'Thank You' },
 ];
 
-const PROJECT_IDS = ['project-elo', 'project-figma', 'project-solvps', 'project-solmate', 'project-paytrace'];
-
 const Sidebar: React.FC<SidebarProps> = ({ visible, activeSection }) => {
-  const isProjectActive = PROJECT_IDS.includes(activeSection);
-
-  const linkStyle = (id: string): React.CSSProperties => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    padding: '4px 8px',
-    fontSize: 12,
-    fontWeight: activeSection === id ? 500 : 400,
-    fontFamily: "'Noto Sans KR', sans-serif",
-    letterSpacing: '0.01em',
-    color: activeSection === id ? '#2c4a5e' : 'rgba(120,145,165,.7)',
-    textDecoration: 'none',
-    borderRadius: 4,
-    background: 'transparent',
-    whiteSpace: 'nowrap' as const,
-    lineHeight: 1.6,
-    transition: 'color .15s',
-  });
-
-  const subLinkStyle = (id: string): React.CSSProperties => ({
-    display: 'flex',
-    alignItems: 'center',
-    gap: 6,
-    padding: '3px 8px',
-    fontSize: 11.5,
-    fontWeight: activeSection === id ? 500 : 300,
-    fontFamily: "'Noto Sans KR', sans-serif",
-    letterSpacing: '0.01em',
-    color: activeSection === id ? '#2c4a5e' : 'rgba(130,155,175,.6)',
-    textDecoration: 'none',
-    borderRadius: 4,
-    background: 'transparent',
-    lineHeight: 1.6,
-    transition: 'color .15s',
-  });
-
-  const dot = (active: boolean, small = false): React.CSSProperties => ({
-    width: small ? 3 : 3,
-    height: small ? 3 : 3,
-    borderRadius: '50%',
-    background: active ? (small ? 'rgba(100,150,180,.45)' : 'rgba(100,150,180,.6)') : 'transparent',
-    flexShrink: 0,
-    transition: 'background .15s',
-  });
+  const [open, setOpen] = useState(true);
 
   return (
     <nav
+      className="fixed top-6 right-6 z-100 transition-[transform,opacity] duration-300"
       style={{
-        position: 'fixed',
-        top: 0,
-        right: 0,
-        bottom: 0,
-        width: 160,
-        background: 'transparent',
-        display: 'flex',
-        flexDirection: 'column',
-        padding: '40px 0',
-        zIndex: 100,
-        transform: visible ? 'translateX(0)' : 'translateX(100%)',
+        background: 'rgba(238, 241, 244, 0.88)',
+        backdropFilter: 'blur(16px)',
+        WebkitBackdropFilter: 'blur(16px)',
+        borderRadius: '12px',
+        border: '1px solid rgba(160, 185, 210, 0.25)',
+        width: '168px',
+        transform: visible ? 'translateY(0)' : 'translateY(-10px)',
         opacity: visible ? 1 : 0,
-        transition: 'transform .35s cubic-bezier(.4,0,.2,1), opacity .3s ease',
         pointerEvents: visible ? 'auto' : 'none',
+        transitionTimingFunction: 'cubic-bezier(.4,0,.2,1)',
+        boxShadow: '0 4px 24px rgba(60,90,120,0.08)',
       }}
     >
-      {/* Workspace label */}
-      <div
-        style={{
-          fontFamily: "'DM Mono', monospace",
-          fontSize: 9,
-          letterSpacing: '0.18em',
-          textTransform: 'uppercase',
-          color: 'rgba(140,165,185,.6)',
-          padding: '0 16px 16px',
-          marginBottom: 8,
-        }}
+      {/* Toggle button */}
+      <button
+        onClick={() => setOpen((v) => !v)}
+        className="w-full flex items-center justify-between px-4 py-3 cursor-pointer"
+        style={{ background: 'none', border: 'none', outline: 'none' }}
       >
-        우정인 포트폴리오
-      </div>
+        <span className="font-sans text-[11px] font-medium tracking-[0.16em] uppercase text-[#8aa0b4]">
+          Menu
+        </span>
+        <span className="relative flex items-center justify-center" style={{ width: '16px', height: '16px' }}>
+          {open ? (
+            <>
+              <span
+                className="absolute block h-px bg-[#8aa0b4] transition-all duration-200"
+                style={{ width: '14px', transform: 'rotate(45deg)' }}
+              />
+              <span
+                className="absolute block h-px bg-[#8aa0b4] transition-all duration-200"
+                style={{ width: '14px', transform: 'rotate(-45deg)' }}
+              />
+            </>
+          ) : (
+            <span className="flex flex-col gap-1 items-end">
+              <span className="block h-px bg-[#8aa0b4]" style={{ width: '14px' }} />
+              <span className="block h-px bg-[#8aa0b4]" style={{ width: '10px' }} />
+            </span>
+          )}
+        </span>
+      </button>
+
+      {/* Divider */}
+      <div className="mx-4 border-t border-[rgba(160,185,210,0.2)]" />
 
       {/* Nav list */}
-      <ul style={{ listStyle: 'none', padding: '0 8px', overflowY: 'auto', flex: 1 }}>
-        {NAV_ENTRIES.map((entry, i) => {
-          if (isGroup(entry)) {
+      <div
+        className="overflow-hidden transition-all duration-250"
+        style={{
+          maxHeight: open ? '400px' : '0px',
+          opacity: open ? 1 : 0,
+          transitionTimingFunction: 'cubic-bezier(.4,0,.2,1)',
+        }}
+      >
+        <ul className="list-none px-3 py-3">
+          {NAV_ENTRIES.map((entry, i) => {
+            if (isGroup(entry)) {
+              return (
+                <li key={entry.label} className={i > 0 ? 'mt-3' : ''}>
+                  <span
+                    className="block text-center font-sans text-[10px] font-medium tracking-[0.2em] uppercase mb-1"
+                    style={{ color: 'rgba(100,130,155,0.5)' }}
+                  >
+                    {entry.label}
+                  </span>
+                  <ul className="list-none">
+                    {entry.children.map((child) => {
+                      const isActive = activeSection === child.id;
+                      return (
+                        <li key={child.id}>
+                          <a
+                            href={`#${child.id}`}
+                            className="block text-center py-1 font-sans text-[13px] no-underline transition-colors duration-150 rounded-md"
+                            style={{
+                              color: isActive ? '#1a2530' : 'rgba(90,118,140,0.7)',
+                              fontWeight: isActive ? 500 : 300,
+                              background: isActive ? 'rgba(140,175,205,0.12)' : 'transparent',
+                            }}
+                          >
+                            {child.label}
+                          </a>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </li>
+              );
+            }
+
+            const isActive = activeSection === entry.id;
             return (
-              <li key={entry.label} style={{ marginTop: 4 }}>
-                {/* Group label */}
-                <div
+              <li key={entry.id} className={i > 0 ? 'mt-0.5' : ''}>
+                <a
+                  href={`#${entry.id}`}
+                  className="block text-center py-1 font-sans text-[13px] no-underline transition-colors duration-150 rounded-md"
                   style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 6,
-                    padding: '4px 8px',
-                    fontSize: 12,
-                    fontFamily: "'Noto Sans KR', sans-serif",
-                    color: isProjectActive ? '#2c4a5e' : 'rgba(120,145,165,.7)',
-                    fontWeight: isProjectActive ? 500 : 400,
-                    cursor: 'default',
-                    userSelect: 'none',
-                    letterSpacing: '0.01em',
+                    color: isActive ? '#1a2530' : 'rgba(90,118,140,0.7)',
+                    fontWeight: isActive ? 500 : 400,
+                    background: isActive ? 'rgba(140,175,205,0.12)' : 'transparent',
                   }}
                 >
-                  <span style={dot(isProjectActive)} />
                   {entry.label}
-                  <span
-                    style={{
-                      fontSize: 9,
-                      color: 'rgba(160,185,200,.5)',
-                      marginLeft: 'auto',
-                    }}
-                  >
-                    ▾
-                  </span>
-                </div>
-
-                {/* Children */}
-                <ul style={{ listStyle: 'none', paddingLeft: 12 }}>
-                  {entry.children.map((child) => (
-                    <li key={child.id}>
-                      <a href={`#${child.id}`} style={subLinkStyle(child.id)}>
-                        <span style={dot(activeSection === child.id, true)} />
-                        {child.label}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
+                </a>
               </li>
             );
-          }
-
-          return (
-            <li key={entry.id} style={{ marginTop: i > 0 ? 4 : 0 }}>
-              <a href={`#${entry.id}`} style={linkStyle(entry.id)}>
-                <span style={dot(activeSection === entry.id)} />
-                {entry.label}
-              </a>
-            </li>
-          );
-        })}
-      </ul>
+          })}
+        </ul>
+      </div>
     </nav>
   );
 };
