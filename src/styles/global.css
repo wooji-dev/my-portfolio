@@ -1,4 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: 'Noto Sans KR', sans-serif;
+  --font-point: 'Cormorant Garamond', Georgia, serif;
+  --color-bg: #f0f2f5;
+  --color-ink: #1a2530;
+  --color-muted: #5a6e80;
+  --color-dim: #8a9ab0;
+  --color-border: rgba(160, 185, 210, 0.2);
+}
 
 * {
   box-sizing: border-box;
@@ -12,11 +23,21 @@ html {
 
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: var(--font-sans);
   font-weight: 300;
-  background: #f0f2f5;
+  background: var(--color-bg);
 }
 
 ::-webkit-scrollbar { width: 3px; }
 ::-webkit-scrollbar-track { background: #f0f2f5; }
 ::-webkit-scrollbar-thumb { background: rgba(160, 185, 210, 0.5); border-radius: 2px; }
+
+main {
+  padding-left: clamp(48px, 8vw, 160px);
+  padding-right: clamp(48px, 8vw, 160px);
+}
+
+[data-section] {
+  padding-top: clamp(64px, 8vh, 120px);
+  padding-bottom: clamp(64px, 8vh, 120px);
+}

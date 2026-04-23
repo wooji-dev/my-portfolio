@@ -5,31 +5,25 @@ export interface Metric {
   delta: string;
 }
 
+export type IssueTag = 'Troubleshooting' | 'Prevention' | 'Refactoring' | 'Clean Code';
+
+export interface Issue {
+  tag: IssueTag;
+  title: string;
+  problem: string;
+  solution: string;
+  metrics?: Metric[];
+  result: string;
+}
+
 export interface Project {
   id: string;
   index: string;
   title: string;
-  subtitle: string;
   period: string;
-  tags: string[];
-  problem: {
-    heading: string;
-    text: string;
-  };
-  analysis: {
-    heading: string;
-    points: string[];
-  };
-  solution: {
-    heading: string;
-    text: string;
-    troubleshooting: string[];
-  };
-  result: {
-    heading: string;
-    metrics: Metric[];
-    text: string;
-  };
+  overview: string;
+  stack: string[];
+  issues: Issue[];
 }
 
 export interface CareerItem {
@@ -56,5 +50,3 @@ export interface BootcampItem {
   detail?: string;
   period: string;
 }
-
-export type AuroraVariant = 'default' | 'alt';
