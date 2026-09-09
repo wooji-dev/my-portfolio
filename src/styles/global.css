@@ -1,14 +1,15 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Noto+Sans+KR:wght@300;400;500;700&display=swap');
 @import "tailwindcss";
 
 @theme {
   --font-sans: 'Noto Sans KR', sans-serif;
   --font-point: 'Cormorant Garamond', Georgia, serif;
-  --color-bg: #f0f2f5;
-  --color-ink: #1a2530;
-  --color-muted: #5a6e80;
-  --color-dim: #8a9ab0;
-  --color-border: rgba(160, 185, 210, 0.2);
+  --color-bg: #ffffff;
+  --color-ink: #0f172a;
+  --color-muted: #475569;
+  --color-dim: #94a3b8;
+  --color-border: #e2e8f0;
+  --color-accent: #2563eb;
 }
 
 * {
@@ -24,20 +25,23 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   font-family: var(--font-sans);
-  font-weight: 300;
+  font-weight: 400;
   background: var(--color-bg);
 }
 
 ::-webkit-scrollbar { width: 3px; }
-::-webkit-scrollbar-track { background: #f0f2f5; }
-::-webkit-scrollbar-thumb { background: rgba(160, 185, 210, 0.5); border-radius: 2px; }
+::-webkit-scrollbar-track { background: #f8fafc; }
+::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.5); border-radius: 2px; }
 
 main {
   padding-left: clamp(48px, 8vw, 160px);
-  padding-right: clamp(48px, 8vw, 160px);
+  padding-right: clamp(180px, 14vw, 240px);
 }
 
 [data-section] {
-  padding-top: clamp(64px, 8vh, 120px);
-  padding-bottom: clamp(64px, 8vh, 120px);
+  padding-top: clamp(72px, 9vh, 128px);
+  padding-bottom: clamp(72px, 9vh, 128px);
 }
+
+::-moz-selection { background: rgba(37, 99, 235, 0.12); color: #0f172a; }
+::selection      { background: rgba(37, 99, 235, 0.12); color: #0f172a; }
