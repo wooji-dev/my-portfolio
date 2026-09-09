@@ -16,6 +16,12 @@ export interface Issue {
   result: string;
 }
 
+export interface Mockup {
+  src: string;
+  alt: string;
+  caption?: string;
+}
+
 export interface Project {
   id: string;
   index: string;
@@ -23,6 +29,7 @@ export interface Project {
   period: string;
   overview: string;
   stack: string[];
+  mockup?: Mockup;
   issues: Issue[];
 }
 

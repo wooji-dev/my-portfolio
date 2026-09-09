@@ -2,40 +2,42 @@ import React from 'react';
 
 const CoverPage: React.FC = () => (
   <section
-    className="relative flex items-end"
-    style={{
-      height: '100vh',
-      paddingTop: 'clamp(64px, 8vh, 120px)',
-      paddingBottom: 'clamp(64px, 8vh, 120px)',
-    }}
+    className="relative flex flex-col items-start justify-center"
+    style={{ height: '100vh' }}
   >
-    <div className="w-full">
-      <div className="font-sans text-[12px] text-dim tracking-[0.06em] mb-6">
-        2023–2026
-      </div>
+    {/* PORTFOLIO heading */}
+    <h1
+      className="text-[clamp(72px,10vw,120px)] text-ink tracking-[-0.02em] mb-10"
+      style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 700, lineHeight: 0.95 }}
+    >
+      PORTFOLIO
+    </h1>
 
-      <h1
-        className="text-[clamp(72px,10vw,120px)] font-light text-ink leading-[0.95] mb-7 tracking-[-0.02em]"
-        style={{ fontFamily: "'Cormorant Garamond', Georgia, serif" }}
-      >
-        Portfolio
-      </h1>
+    {/* Quote */}
+    <p
+      className="font-sans text-[15px] text-muted max-w-[480px] mb-12"
+      style={{ lineHeight: 1.65, textDecoration: 'none' }}
+    >
+      "데이터로 문제를 정의하고, 코드로 직접 해결합니다."
+    </p>
 
-      <p className="font-sans text-[14px] text-[#6a7e90] tracking-[0.01em] mb-16 leading-relaxed">
-        "데이터로 문제를 정의하고, 코드로 직접 해결합니다."
-      </p>
-
-      <p className="font-sans text-[18px] font-medium text-ink tracking-[0.08em] mb-2.5">
+    {/* Name + Role */}
+    <div className="flex items-center gap-3">
+      <span className="font-sans text-[17px] font-semibold text-ink tracking-[0.06em]">
         우 정 인
-      </p>
+      </span>
+      <span className="text-dim" style={{ fontSize: '13px' }}>·</span>
+      <span className="font-sans text-[13px] text-muted">
+        Frontend / Software Engineer
+      </span>
+    </div>
 
-      <p className="font-sans text-[12px] text-dim leading-[1.9] tracking-[0.02em]">
-        010-8341-0090
-        <br />
-        wjddls7530@naver.com
-        <br />
-        github.com/wooji-dev
-      </p>
+    {/* Bottom contact bar */}
+    <div
+      className="absolute bottom-10 left-0 font-sans text-[12px] text-dim tracking-[0.03em]"
+      style={{ whiteSpace: 'nowrap', textDecoration: 'none' }}
+    >
+      wooji.dev@gmail.com&nbsp;&nbsp;|&nbsp;&nbsp;010-8341-0090&nbsp;&nbsp;|&nbsp;&nbsp;github.com/wooji-dev
     </div>
   </section>
 );
